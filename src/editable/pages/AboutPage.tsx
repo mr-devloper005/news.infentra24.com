@@ -1,45 +1,45 @@
 import Link from 'next/link'
+import { BarChart3, Globe2, Newspaper, ShieldCheck } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { pagesContent } from '@/editable/content/pages.content'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
 
+const values = [
+  { icon: Globe2, title: 'Wide discovery', text: 'Make public updates easier to find across categories, search, and related reading paths.' },
+  { icon: Newspaper, title: 'Media-ready pages', text: 'Present each announcement with clean hierarchy, summary, imagery, and source context.' },
+  { icon: BarChart3, title: 'Clear momentum', text: 'Help visitors move from headline to detail without losing the broader story.' },
+  { icon: ShieldCheck, title: 'Reliable structure', text: 'Keep routes, post data, and publishing flows consistent while improving the experience.' },
+]
+
 export default function AboutPage() {
   return (
     <EditableSiteShell>
-      <main className="bg-[#f7f4ef] text-[#111]">
-        <section className="border-b border-black bg-[#c92f2f] text-white">
-          <div className="mx-auto max-w-[var(--editable-container)] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-            <p className="text-xs font-black uppercase tracking-[0.28em]">{pagesContent.about.badge}</p>
-            <h1 className="editorial-brand mt-5 max-w-5xl text-6xl font-black leading-[0.92] tracking-[-0.055em] sm:text-8xl">
-              Independent media, built for clear stories.
-            </h1>
+      <main className="bg-[#e7f1f5] text-[#26394f]">
+        <section className="relative overflow-hidden bg-[#2c5e9d] text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,.22),transparent_35%)]" />
+          <div className="relative mx-auto max-w-[980px] px-4 py-16 sm:px-6 lg:py-24">
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#b8e6c7]">{pagesContent.about.badge}</p>
+            <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight sm:text-6xl">Media distribution built around clear public updates.</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/82">{pagesContent.about.description}</p>
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[var(--editable-container)] border-x border-black bg-white lg:grid-cols-[1.45fr_0.55fr]">
-          <article className="border-b border-black p-7 sm:p-10 lg:border-b-0 lg:border-r lg:p-16">
-            <p className="text-sm font-black uppercase tracking-[0.2em] text-[#c92f2f]">About {SITE_CONFIG.name}</p>
-            <p className="editorial-serif mt-6 text-3xl font-bold leading-[1.25] sm:text-4xl">{pagesContent.about.description}</p>
-            <div className="article-content mt-10 space-y-6">
+        <section className="mx-auto grid max-w-[980px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.1fr_.9fr]">
+          <article className="bg-white p-8 shadow-[0_12px_34px_rgba(44,94,157,.12)]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#4daf73]">About {SITE_CONFIG.name}</p>
+            <div className="article-content mt-7">
               {pagesContent.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
+            <Link href="/search" className="nv-blue-button mt-5">Explore Distribution</Link>
           </article>
-          <aside className="grid bg-[#f7f4ef]">
-            {pagesContent.about.values.map((value, index) => (
-              <div key={value.title} className="border-b border-black p-7 last:border-b-0 sm:p-9">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#c92f2f]">0{index + 1}</p>
-                <h2 className="editorial-serif mt-4 text-3xl font-black leading-tight">{value.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-black/65">{value.description}</p>
+          <aside className="grid gap-4">
+            {values.map((value) => (
+              <div key={value.title} className="bg-white p-5 shadow-[0_8px_24px_rgba(44,94,157,.1)]">
+                <div className="flex items-center gap-3 text-[#2c5e9d]"><value.icon className="h-6 w-6" /><h2 className="text-xl font-black">{value.title}</h2></div>
+                <p className="mt-3 text-sm leading-6 text-[#63727e]">{value.text}</p>
               </div>
             ))}
           </aside>
-        </section>
-
-        <section className="border-y border-black bg-[#171717] text-white">
-          <div className="mx-auto flex max-w-[var(--editable-container)] flex-col gap-6 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <h2 className="editorial-brand max-w-3xl text-4xl font-black leading-none sm:text-5xl">Read the stories shaping the conversation.</h2>
-            <Link href="/search" className="inline-flex w-fit bg-[#c92f2f] px-6 py-4 text-xs font-black uppercase tracking-[0.18em]">Explore the archive</Link>
-          </div>
         </section>
       </main>
     </EditableSiteShell>
