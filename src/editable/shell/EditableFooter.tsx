@@ -1,44 +1,71 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { Facebook, Linkedin, Mail, MessageCircle, Send, Share2 } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 import { globalContent } from '@/editable/content/global.content'
-import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
 export function EditableFooter() {
   const year = new Date().getFullYear()
-  const { session, logout } = useEditableLocalAuthSession()
+  const emailHost = SITE_CONFIG.baseUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') || SITE_CONFIG.name.toLowerCase().replace(/\s+/g, '')
+  const footerLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Login', href: '/login' },
+    { label: 'Register', href: '/signup' },
+  ]
 
   return (
-    <footer className="border-t-8 border-[var(--slot4-accent)] bg-black text-white">
-      <div className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_.7fr_.7fr]">
+    <footer className="bg-[#123e70] text-white">
+      <section className="bg-[#2c5e9d] py-4 text-center text-2xl font-black uppercase tracking-tight sm:text-3xl">
+        Distribution Highlights
+      </section>
+
+      <section className="relative overflow-hidden bg-[#d8e8ee] text-[#17436f]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,255,255,.84),transparent_42%),linear-gradient(90deg,rgba(44,94,157,.24),transparent,rgba(44,94,157,.22))]" />
+        <div className="relative mx-auto grid max-w-[980px] gap-8 px-4 py-10 text-center sm:grid-cols-3 sm:px-6">
+          {['BRAND TEAMS', 'EDUCATION', 'INDUSTRY DESKS'].map((name) => (
+            <div key={name} className="footer-highlight">
+              <div className="mx-auto h-36 w-36 overflow-hidden rounded-full border-[10px] border-[#173e67] bg-white shadow-xl">
+                <img src={`/placeholder.svg?height=240&width=240&text=${encodeURIComponent(name)}`} alt="" className="h-full w-full object-cover" />
+              </div>
+              <h3 className="mt-6 text-xl font-black">{name}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#102f4f]">&quot;Clear distribution and dependable visibility for public updates.&quot;</p>
+              <Link href="/about" className="mt-2 inline-flex text-xs text-[#2c5e9d]">Read more</Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#d7ebf1] text-[#2c5e9d]">
+        <div className="mx-auto flex max-w-[980px] flex-wrap items-center justify-center gap-5 px-4 py-4 sm:px-6">
+          
+       
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-[980px] px-4 py-8 sm:px-6">
+        <div className="grid gap-8 lg:grid-cols-[.8fr_.8fr_1.4fr]">
           <div>
-            <Link href="/" className="editorial-brand text-5xl font-black text-[var(--slot4-accent)] sm:text-6xl">{SITE_CONFIG.name}</Link>
-            <p className="mt-6 max-w-xl text-sm leading-7 text-white/62">{globalContent.footer?.description || SITE_CONFIG.description}</p>
-            <form action="/signup" className="mt-8 flex max-w-xl border border-white/35">
-              <input name="email" type="email" placeholder="Email for newsroom updates" className="min-w-0 flex-1 bg-transparent px-4 py-4 text-sm outline-none placeholder:text-white/40" />
-              <button className="bg-[var(--slot4-accent)] px-5 text-xs font-black uppercase tracking-[.14em]">Subscribe</button>
-            </form>
-          </div>
-          <div>
-            <h3 className="border-b border-white/25 pb-3 text-[10px] font-black uppercase tracking-[.22em] text-white/55">Explore</h3>
-            <div className="mt-4 grid gap-3">
-              <Link href="/search" className="group inline-flex items-center justify-between text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Archive<ArrowRight className="h-4 w-4" /></Link>
+            <h3 className="text-sm font-semibold">Quick Links</h3>
+            <div className="mt-4 grid gap-3 text-xs text-white/82">
+              {footerLinks.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
             </div>
           </div>
           <div>
-            <h3 className="border-b border-white/25 pb-3 text-[10px] font-black uppercase tracking-[.22em] text-white/55">Publication</h3>
-            <div className="mt-4 grid gap-3">
-              <Link href="/about" className="text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">About</Link>
-              <Link href="/contact" className="text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Contact</Link>
-              {session ? <><Link href="/create" className="text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Publish</Link><button onClick={logout} className="text-left text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Logout</button></> : <><Link href="/login" className="text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Log in</Link><Link href="/signup" className="text-sm font-black uppercase tracking-[.08em] hover:text-[var(--slot4-accent)]">Subscribe</Link></>}
+            <h3 className="text-sm font-semibold">Access</h3>
+            <div className="mt-4 grid gap-3 text-xs text-white/82">
+              <Link href="/login">Sign In</Link>
+              <Link href="/signup">Register</Link>
+              <Link href="/contact">Contact Us</Link>
             </div>
           </div>
+          
         </div>
       </div>
-      <div className="border-t border-white/20 px-4 py-5 text-center text-[10px] font-black uppercase tracking-[.18em] text-white/45">© {year} {SITE_CONFIG.name}. Independent media and public information.</div>
+
+      <div className="border-t border-white/10 bg-white px-4 py-4 text-xs text-[#2c5e9d]">Copyright {year}, {SITE_CONFIG.name} - All rights reserved</div>
     </footer>
   )
 }
