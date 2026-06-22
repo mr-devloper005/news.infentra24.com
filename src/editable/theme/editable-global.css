@@ -15,14 +15,14 @@ body {
 }
 
 *::selection {
-  background: var(--editorial-red) !important;
-  color: #fff !important;
-  -webkit-text-fill-color: #fff;
+  background: #b8e6c7 !important;
+  color: #123e70 !important;
+  -webkit-text-fill-color: #123e70;
 }
 
 *::-moz-selection {
-  background: var(--editorial-red) !important;
-  color: #fff !important;
+  background: #b8e6c7 !important;
+  color: #123e70 !important;
 }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
