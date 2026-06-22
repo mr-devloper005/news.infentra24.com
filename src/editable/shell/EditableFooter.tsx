@@ -1,19 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { Facebook, Linkedin, Mail, MessageCircle, Send, Share2 } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
-import { globalContent } from '@/editable/content/global.content'
+import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
 export function EditableFooter() {
   const year = new Date().getFullYear()
+  const { session, logout } = useEditableLocalAuthSession()
   const emailHost = SITE_CONFIG.baseUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') || SITE_CONFIG.name.toLowerCase().replace(/\s+/g, '')
   const footerLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Contact', href: '/contact' },
-    { label: 'Login', href: '/login' },
-    { label: 'Register', href: '/signup' },
   ]
 
   return (
@@ -56,9 +54,16 @@ export function EditableFooter() {
           <div>
             <h3 className="text-sm font-semibold">Access</h3>
             <div className="mt-4 grid gap-3 text-xs text-white/82">
-              <Link href="/login">Sign In</Link>
-              <Link href="/signup">Register</Link>
-              <Link href="/contact">Contact Us</Link>
+              {session ? (
+                <button type="button" onClick={logout} className="w-fit text-left font-black text-white">
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <Link href="/login">Sign In</Link>
+                  <Link href="/signup">Register</Link>
+                </>
+              )}
             </div>
           </div>
           

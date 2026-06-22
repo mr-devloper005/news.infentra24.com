@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Search } from 'lucide-react'
+import { SITE_CONFIG } from '@/lib/site-config'
 import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
 
 export function EditableNavbar() {
@@ -16,7 +17,8 @@ export function EditableNavbar() {
     <header className="sticky top-0 z-50 bg-white text-[#26394f] shadow-[0_2px_12px_rgba(18,62,112,.16)]">
       <div className="bg-[#2c5e9d] text-white">
         <div className="mx-auto flex min-h-11 max-w-[980px] flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 py-2 text-xs font-black sm:flex-nowrap sm:px-6">
-          <Link href="/" className="mr-1 inline-flex items-center" aria-label="Home">
+          <Link href="/" className="mr-1 inline-flex items-center gap-2" aria-label="Home">
+            <span className="text-sm font-black tracking-tight text-white">{SITE_CONFIG.name}</span>
             <img src="/favicon.png" alt="NewsVoir" className="h-8 w-auto rounded bg-white/95 px-1 py-0.5" />
           </Link>
           {navLinks.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
@@ -29,6 +31,7 @@ export function EditableNavbar() {
           {session ? (
             <>
               <span className="font-black text-white/90">{session.name}</span>
+              <Link href="/create">Create</Link>
               <button type="button" onClick={logout} className="font-black text-white">
                 Logout
               </button>
